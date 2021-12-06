@@ -12,7 +12,7 @@ namespace EssenceDrainContagion
         public HotkeyNode BlightKey {get; set; } = Keys.E;
         public ToggleNode ClosestToMouse { get; set; } = new ToggleNode(true);
         public RangeNode<int> AimRangeGrid { get; set; } = new RangeNode<int>(99, 40, 200);
-        public RangeNode<int> AimLoopDelay { get; set; } = new RangeNode<int>(124, 1, 200);
+        public RangeNode<int> AimLoopDelay { get; set; } = new RangeNode<int>(1, 1, 200);
         public ToggleNode RMousePos { get; set; } = new ToggleNode(false);
         public ToggleNode AimPlayers { get; set; } = new ToggleNode(true);
         public ToggleNode DebugMonsterWeight { get; set; } = new ToggleNode(false);
