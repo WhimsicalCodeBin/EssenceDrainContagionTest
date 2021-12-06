@@ -97,6 +97,7 @@ namespace EssenceDrainContagion
                     && _currentTarget != null) //new
                 {
                     _aiming = true;
+                    new WaitTime(30);
                     yield return Attack();
                 } else _aiming = false; //new
 
