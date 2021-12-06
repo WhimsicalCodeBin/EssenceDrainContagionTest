@@ -76,7 +76,7 @@ namespace EssenceDrainContagion
                     _currentTarget = ScanValidMonsters()?.FirstOrDefault();
                     //_lastTargetSwap.Restart();
                 }
-                else if (_lastTargetSwap.ElapsedMilliseconds > 300)
+                else if (_lastTargetSwap.ElapsedMilliseconds > 100)
                 {
                     var best = ScanValidMonsters()?.FirstOrDefault();
                     if (best?.Item1 > 1.2f * _currentTarget?.Item1) _currentTarget = best;
@@ -90,6 +90,7 @@ namespace EssenceDrainContagion
                     && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
                     && _currentTarget != null) //new
                 {
+                    Thread.Sleep(300);
                     _lastTargetSwap.Start();
                     _aiming = true;
                     yield return Attack();
