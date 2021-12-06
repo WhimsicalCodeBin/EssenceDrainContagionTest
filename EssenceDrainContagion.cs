@@ -97,6 +97,7 @@ namespace EssenceDrainContagion
                     && _currentTarget != null) //new
                 {
                     _aiming = true;
+                    new WaitTime(300);
                     yield return Attack();
                 } else _aiming = false; //new
 
@@ -116,7 +117,7 @@ namespace EssenceDrainContagion
             //if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
-            new WaitTime(30);
+            new WaitTime(300);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
