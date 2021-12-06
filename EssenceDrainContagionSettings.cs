@@ -9,6 +9,7 @@ namespace EssenceDrainContagion
         public HotkeyNode AimKey { get; set; } = Keys.RButton;
         public HotkeyNode ContagionKey { get; set; } = Keys.Q;
         public HotkeyNode EssenceDrainKey { get; set; } = Keys.W;
+        public HotkeyNode BlightKey {get; set; } = Keys.E;
         public ToggleNode ClosestToMouse { get; set; } = new ToggleNode(true);
         public RangeNode<int> AimRangeGrid { get; set; } = new RangeNode<int>(99, 40, 200);
         public RangeNode<int> AimLoopDelay { get; set; } = new RangeNode<int>(124, 1, 200);
