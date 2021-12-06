@@ -21,7 +21,7 @@ namespace EssenceDrainContagion
         private HashSet<string> _ignoredMonsters;
         private Coroutine _mainCoroutine;
         private Tuple<float, Entity> _currentTarget;
-        private Stopwatch _lastTargetSwap = new Stopwatch();
+        //private Stopwatch _lastTargetSwap = new Stopwatch();
 
         private readonly string[] _ignoredBuffs = {
             "capture_monster_captured",
@@ -77,7 +77,7 @@ namespace EssenceDrainContagion
                         _currentTarget = ScanValidMonsters()?.FirstOrDefault();
                         _lastTargetSwap.Restart();
                     }
-                    else if (_lastTargetSwap.ElapsedMilliseconds > 100)
+                    else if (_lastTargetSwap.ElapsedMilliseconds > 500)
                     {
                         var best = ScanValidMonsters()?.FirstOrDefault();
                         if (best?.Item1 > 1.2f * _currentTarget?.Item1) _currentTarget = best;
@@ -97,7 +97,6 @@ namespace EssenceDrainContagion
                     && _currentTarget != null) //new
                 {
                     _aiming = true;
-                    new WaitTime(300);
                     yield return Attack();
                 } else _aiming = false; //new
 
@@ -117,7 +116,6 @@ namespace EssenceDrainContagion
             //if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
-            new WaitTime(300);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
