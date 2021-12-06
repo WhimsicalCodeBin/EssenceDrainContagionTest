@@ -20,8 +20,8 @@ namespace EssenceDrainContagion
         private Vector2 _oldMousePos;
         private HashSet<string> _ignoredMonsters;
         private Coroutine _mainCoroutine;
-        private Tuple<float, Entity> _currentTarget;
-        //private Stopwatch _lastTargetSwap = new Stopwatch();
+        private Tuple<float, Entity> _currentTarget = null;
+        private Stopwatch _lastTargetSwap = new Stopwatch();
 
         private readonly string[] _ignoredBuffs = {
             "capture_monster_captured",
@@ -69,24 +69,18 @@ namespace EssenceDrainContagion
         {
             while (true)
             {
-                try
+
+                if (_currentTarget == null ||
+                    !ValidTarget(_currentTarget?.Item2))
                 {
-                    if (_currentTarget == null ||
-                        !ValidTarget(_currentTarget?.Item2))
-                    {
-                        _currentTarget = ScanValidMonsters()?.FirstOrDefault();
-                        _lastTargetSwap.Restart();
-                    }
-                    else if (_lastTargetSwap.ElapsedMilliseconds > 500)
-                    {
-                        var best = ScanValidMonsters()?.FirstOrDefault();
-                        if (best?.Item1 > 1.2f * _currentTarget?.Item1) _currentTarget = best;
-                        _lastTargetSwap.Restart();
-                    }
+                    _currentTarget = ScanValidMonsters()?.FirstOrDefault();
+                    //_lastTargetSwap.Restart();
                 }
-                catch
+                else if (_lastTargetSwap.ElapsedMilliseconds > 300)
                 {
-                    // ignored
+                    var best = ScanValidMonsters()?.FirstOrDefault();
+                    if (best?.Item1 > 1.2f * _currentTarget?.Item1) _currentTarget = best;
+                    _lastTargetSwap.Restart();
                 }
 
                  /* (new) if (!Input.IsKeyDown(Settings.AimKey)) 
@@ -96,6 +90,7 @@ namespace EssenceDrainContagion
                     && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
                     && _currentTarget != null) //new
                 {
+                    _lastTargetSwap.Start();
                     _aiming = true;
                     yield return Attack();
                 } else _aiming = false; //new
@@ -104,9 +99,11 @@ namespace EssenceDrainContagion
                 {
                     //(new) Input.SetCursorPos(_oldMousePos);
                     _aiming = false;
+                    _currentTarget = null;
+                    _lastTargetSwap.Stop();
                 }
 
-                yield return new WaitTime(Settings.AimLoopDelay.Value);
+                yield return new WaitTime(10); //Settings.AimLoopDelay.Value
             }
             // ReSharper disable once IteratorNeverReturns
         }
