@@ -90,7 +90,7 @@ namespace EssenceDrainContagion
                     && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
                     && _currentTarget != null) //new
                 {
-                    Thread.Sleep(300);
+                    WaitTime(300);
                     _lastTargetSwap.Start();
                     _aiming = true;
                     yield return Attack();
