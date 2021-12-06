@@ -16,11 +16,11 @@ namespace EssenceDrainContagion
 {
     public class EssenceDrainContagion : BaseSettingsPlugin<EssenceDrainContagionSettings>
     {
-        private bool _aiming;
+        private bool _aiming = false;
         private Vector2 _oldMousePos;
         private HashSet<string> _ignoredMonsters;
         private Coroutine _mainCoroutine;
-        private Tuple<float, Entity> _currentTarget = null;
+        private Tuple<float, Entity> _currentTarget;
         private Stopwatch _lastTargetSwap = new Stopwatch();
 
         private readonly string[] _ignoredBuffs = {
@@ -89,19 +89,20 @@ namespace EssenceDrainContagion
                     // ignored
                 }
 
-                /* if (!Input.IsKeyDown(Settings.AimKey)) 
-                    _oldMousePos = Input.MousePosition; */
+                 /* (new) if (!Input.IsKeyDown(Settings.AimKey)) 
+                    _oldMousePos = Input.MousePosition;  */
                 if (Input.IsKeyDown(Settings.AimKey)
                     && !GameController.Game.IngameState.IngameUi.InventoryPanel.IsVisible
-                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible)
+                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
+                    && _currentTarget != null) //new
                 {
                     _aiming = true;
                     yield return Attack();
-                }
+                } else _aiming = false; //new
 
-                if (!Input.IsKeyDown(Settings.AimKey) && _aiming)
+                if (!Input.IsKeyDown(Settings.AimKey) /*&& _aiming*/)
                 {
-                    // Input.SetCursorPos(_oldMousePos);
+                    //(new) Input.SetCursorPos(_oldMousePos);
                     _aiming = false;
                 }
 
@@ -112,7 +113,7 @@ namespace EssenceDrainContagion
 
         private IEnumerator Attack()
         {
-            if (_currentTarget == null) yield break;
+            //if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
