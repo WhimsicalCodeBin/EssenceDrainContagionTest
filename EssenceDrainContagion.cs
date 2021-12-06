@@ -106,7 +106,7 @@ namespace EssenceDrainContagion
                     _aiming = false;
                 }
 
-                yield return new WaitTime(10);
+                yield return new WaitTime(Settings.AimLoopDelay.Value);
             }
             // ReSharper disable once IteratorNeverReturns
         }
