@@ -83,6 +83,14 @@ namespace EssenceDrainContagion
                     _lastTargetSwap.Restart();
                 }
 
+
+                if (_currentTarget == null) {
+                    var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
+                    Input.SetCursorPos(position);
+                    Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
+                }
+
+
                 if (!Input.IsKeyDown(Settings.AimKey)) 
                     _oldMousePos = Input.MousePosition;
                 if (Input.IsKeyDown(Settings.AimKey)
