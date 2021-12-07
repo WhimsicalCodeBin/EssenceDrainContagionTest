@@ -6,13 +6,13 @@ namespace EssenceDrainContagion
 {
     public class EssenceDrainContagionSettings : ISettings
     {
-        public HotkeyNode AimKey { get; set; } = Keys.RButton;
+        public HotkeyNode AimKey { get; set; } = Keys.E;
         public HotkeyNode ContagionKey { get; set; } = Keys.Q;
         public HotkeyNode EssenceDrainKey { get; set; } = Keys.W;
         public HotkeyNode BlightKey {get; set; } = Keys.E;
         public ToggleNode ClosestToMouse { get; set; } = new ToggleNode(false);
-        public RangeNode<int> AimRangeGrid { get; set; } = new RangeNode<int>(100, 40, 200);
-        public RangeNode<int> AimLoopDelay { get; set; } = new RangeNode<int>(90, 1, 200);
+        public RangeNode<int> AimRangeGrid { get; set; } = new RangeNode<int>(150, 40, 200);
+        public RangeNode<int> AimLoopDelay { get; set; } = new RangeNode<int>(70, 1, 200);
         public ToggleNode RMousePos { get; set; } = new ToggleNode(false);
         public ToggleNode AimPlayers { get; set; } = new ToggleNode(false);
         public ToggleNode DebugMonsterWeight { get; set; } = new ToggleNode(false);
