@@ -16,11 +16,11 @@ namespace EssenceDrainContagion
 {
     public class EssenceDrainContagion : BaseSettingsPlugin<EssenceDrainContagionSettings>
     {
-        private bool _aiming = false;
+        private bool _aiming;
         private Vector2 _oldMousePos;
         private HashSet<string> _ignoredMonsters;
         private Coroutine _mainCoroutine;
-        private Tuple<float, Entity> _currentTarget = null;
+        private Tuple<float, Entity> _currentTarget;
         private Stopwatch _lastTargetSwap = new Stopwatch();
 
         private readonly string[] _ignoredBuffs = {
@@ -74,7 +74,7 @@ namespace EssenceDrainContagion
                     !ValidTarget(_currentTarget?.Item2))
                 {
                     _currentTarget = ScanValidMonsters()?.FirstOrDefault();
-                    //_lastTargetSwap.Restart();
+                    _lastTargetSwap.Restart();
                 }
                 else if (_lastTargetSwap.ElapsedMilliseconds > 100)
                 {
@@ -83,22 +83,20 @@ namespace EssenceDrainContagion
                     _lastTargetSwap.Restart();
                 }
 
-                 /* (new) if (!Input.IsKeyDown(Settings.AimKey)) 
-                    _oldMousePos = Input.MousePosition;  */
+                if (!Input.IsKeyDown(Settings.AimKey)) 
+                    _oldMousePos = Input.MousePosition;
                 if (Input.IsKeyDown(Settings.AimKey)
                     && !GameController.Game.IngameState.IngameUi.InventoryPanel.IsVisible
-                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
-                    && _currentTarget != null) //new
+                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible)
                 {
-                    new WaitTime(300);
                     _lastTargetSwap.Start();
                     _aiming = true;
                     yield return Attack();
-                } else _aiming = false; //new
+                }
 
-                if (!Input.IsKeyDown(Settings.AimKey) /*&& _aiming*/)
+                if (!Input.IsKeyDown(Settings.AimKey) && _aiming)
                 {
-                    //(new) Input.SetCursorPos(_oldMousePos);
+                    Input.SetCursorPos(_oldMousePos);
                     _aiming = false;
                     _currentTarget = null;
                     _lastTargetSwap.Stop();
@@ -111,9 +109,9 @@ namespace EssenceDrainContagion
 
         private IEnumerator Attack()
         {
-            //if (_currentTarget == null) yield break;
+            if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
-            Input.SetCursorPos(position);
+            Input.SetCursorPositionSmooth(position);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
