@@ -87,7 +87,7 @@ namespace EssenceDrainContagion
                 if (_currentTarget == null) {
                     var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
                     Input.SetCursorPos(position);
-                    Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
+                    yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
                 }
 
 
