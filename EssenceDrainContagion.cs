@@ -107,13 +107,13 @@ namespace EssenceDrainContagion
             if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
+            Input.Update();
             /*
             if (_currentTarget.Item2.HasBuff("contagion", false)) yield return Input.Keypress(Settings.ContagionKey.Value);
             if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", false)) yield return Input.Keypress(Settings.EssenceDrainKey.Value);
             if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", true)) yield return Input.Keypress(Settings.BlightKey.Value);
             */
-
-            if (Core.MousePosition == position) {
+            if (Input.MousePosition == position) {
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
             }
         }
