@@ -68,6 +68,7 @@ namespace EssenceDrainContagion
         {
             while (true)
             {
+                _lastTargetSwap.Start();
 
                 if (_currentTarget == null ||
                     !ValidTarget(_currentTarget?.Item2))
