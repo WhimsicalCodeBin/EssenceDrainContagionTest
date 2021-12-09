@@ -20,7 +20,7 @@ namespace EssenceDrainContagion
         private Vector2 _oldMousePos;
         private HashSet<string> _ignoredMonsters;
         private Coroutine _mainCoroutine;
-        private Tuple<float, Entity> _currentTarget = null;
+        private Tuple<float, Entity> _currentTarget;
         private Stopwatch _lastTargetSwap = new Stopwatch();
 
         private readonly string[] _ignoredBuffs = {
@@ -89,8 +89,8 @@ namespace EssenceDrainContagion
                     // ignored
                 }
 
-                /* if (!Input.IsKeyDown(Settings.AimKey)) 
-                    _oldMousePos = Input.MousePosition; */
+                if (!Input.IsKeyDown(Settings.AimKey)) 
+                    _oldMousePos = Input.MousePosition;
                 if (Input.IsKeyDown(Settings.AimKey)
                     && !GameController.Game.IngameState.IngameUi.InventoryPanel.IsVisible
                     && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible)
@@ -101,21 +101,13 @@ namespace EssenceDrainContagion
 
                 if (!Input.IsKeyDown(Settings.AimKey) && _aiming)
                 {
-                    // Input.SetCursorPos(_oldMousePos);
+                    Input.SetCursorPos(_oldMousePos);
                     _aiming = false;
                 }
 
                 yield return new WaitTime(10);
             }
             // ReSharper disable once IteratorNeverReturns
-        }
-
-        private IEnumerator Attack()
-        {
-            if (_currentTarget == null) yield break;
-            var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
-            Input.SetCursorPos(position);
-            yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
         private bool ValidTarget(Entity entity)
@@ -163,6 +155,14 @@ namespace EssenceDrainContagion
             foreach (var line in File.ReadAllLines(fileName))
                 if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("#"))
                     _ignoredMonsters.Add(line.Trim().ToLower());
+        }
+
+        private IEnumerator Attack()
+        {
+            if (_currentTarget == null) yield break;
+            var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
+            Input.SetCursorPos(position);
+            yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
         private IEnumerable<Tuple<float, Entity>> ScanValidMonsters()
