@@ -111,7 +111,7 @@ namespace EssenceDrainContagion
             
             if (_currentTarget.Item2.HasBuff("contagion", false)) yield return Input.Keypress(Settings.ContagionKey.Value);
             if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", false)) yield return Input.Keypress(Settings.EssenceDrainKey.Value);
-            if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", true)) yield return Input.Keypress(Settings.BlightKey.Value);
+            //if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", true)) yield return Input.Keypress(Settings.BlightKey.Value);
             
             //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
