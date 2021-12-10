@@ -92,7 +92,7 @@ namespace EssenceDrainContagion
 
                 if (_currentTarget != null) {
                     _lastTargetSwap.Start();
-                    yield return Attack();
+                    //yield return Attack();
                 }
 
                 if (!Input.IsKeyDown(Settings.AimKey)) 
@@ -168,6 +168,7 @@ namespace EssenceDrainContagion
             if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
+            Input.MouseMove();
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
