@@ -172,7 +172,8 @@ namespace EssenceDrainContagion
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
             Input.MouseMove();
-            System.Threading.Thread.Sleep(50);
+            //System.Threading.Thread.Sleep(50);
+            wait(40);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
@@ -242,6 +243,28 @@ namespace EssenceDrainContagion
             if (entity.Path.Contains("TaniwhaTail")) weight += Settings.TaniwhaTail;
             return weight;
         }
+
+        public void wait(int milliseconds)
+    {
+        var timer1 = new System.Windows.Forms.Timer();
+        if (milliseconds == 0 || milliseconds < 0) return;
+
+        timer1.Interval = milliseconds;
+        timer1.Enabled = true;
+        timer1.Start();
+
+        timer1.Tick += (s, e) =>
+        {
+            timer1.Enabled = false;
+            timer1.Stop();
+        };
+
+        while (timer1.Enabled)
+        {
+            Application.DoEvents();
+        }
+    }
+
     }
 
 }
