@@ -102,7 +102,8 @@ namespace EssenceDrainContagion
                     _oldMousePos = Input.MousePosition;
                 if (Input.IsKeyDown(Settings.AimKey)
                     && !GameController.Game.IngameState.IngameUi.InventoryPanel.IsVisible
-                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible)
+                    && !GameController.Game.IngameState.IngameUi.OpenLeftPanel.IsVisible
+                    && _currentTarget != null)
                 {
                     _aiming = true;
                     yield return Attack();
@@ -168,13 +169,11 @@ namespace EssenceDrainContagion
 
         private IEnumerator Attack()
         {
-            if (_currentTarget == null) yield break;
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
             Input.MouseMove();
-            if (Input.MousePosition == position) {
-                yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
-            }
+            System.Threading.Thread.Sleep(50);
+            yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
         private IEnumerable<Tuple<float, Entity>> ScanValidMonsters()
