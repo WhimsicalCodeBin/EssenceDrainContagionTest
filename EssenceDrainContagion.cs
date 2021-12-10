@@ -62,6 +62,7 @@ namespace EssenceDrainContagion
                 this,
                 "EDC");
             Core.ParallelRunner.Run(_mainCoroutine);
+            _lastTargetSwap.Start();
             return true;
         }
 
@@ -75,7 +76,7 @@ namespace EssenceDrainContagion
                         !ValidTarget(_currentTarget?.Item2))
                     {
                         _currentTarget = ScanValidMonsters()?.FirstOrDefault();
-                        _lastTargetSwap.Restart();
+                        _lastTargetSwap.Stop();
                     }
                     else if (_lastTargetSwap.ElapsedMilliseconds > 100)
                     {
@@ -87,6 +88,11 @@ namespace EssenceDrainContagion
                 catch
                 {
                     // ignored
+                }
+
+                if (_currentTarget != null) {
+                    _lastTargetSwap.Start();
+                    yield return Attack();
                 }
 
                 if (!Input.IsKeyDown(Settings.AimKey)) 
