@@ -173,7 +173,12 @@ namespace EssenceDrainContagion
             Input.SetCursorPos(position);
             Input.MouseMove();
             System.Threading.Thread.Sleep(10);
-            yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
+            if (_currentTarget.Item2.HasBuff("contagion", false)) yield return Input.KeyPress(Settings.ContagionKey.Value);
+            if (_currentTarget.Item2.HasBuff("contagion", true)) yield return Input.KeyPress(Settings.EssenceDrainKey.Value);
+            if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("essence_drain", true)) yield return Input.KeyPress(Settings.BlightKey.Value);
+            //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
+            //Full Rotation
+            //
         }
 
         private IEnumerable<Tuple<float, Entity>> ScanValidMonsters()

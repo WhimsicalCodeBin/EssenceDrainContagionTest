@@ -6,3 +6,6 @@ riderModule.iml
 
 # KDiff3
 *.orig
+*.code-workspace
+*.sqlite
+workspace.code-workspace
