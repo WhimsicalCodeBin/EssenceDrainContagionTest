@@ -111,7 +111,7 @@ namespace EssenceDrainContagion
                     _aiming = false;
                 }
 
-                yield return new WaitTime(10);
+                yield return new WaitTime(107);
             }
             // ReSharper disable once IteratorNeverReturns
         }
@@ -169,6 +169,7 @@ namespace EssenceDrainContagion
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
             Input.MouseMove();
+            new WaitTime(10);
             yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
         }
 
