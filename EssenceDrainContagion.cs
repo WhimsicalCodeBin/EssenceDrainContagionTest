@@ -174,7 +174,7 @@ namespace EssenceDrainContagion
             Input.MouseMove();
             System.Threading.Thread.Sleep(10);
             
-            if (_currentTarget.Item2.HasBuff("contagion", false)) Input.Keypress(Settings.ContagionKey.Value);
+            yield return Input.KeyPress(Settings.ContagionKey.Value);
             //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
             //Full Rotation
             //
