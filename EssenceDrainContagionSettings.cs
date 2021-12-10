@@ -6,7 +6,7 @@ namespace EssenceDrainContagion
 {
     public class EssenceDrainContagionSettings : ISettings
     {
-        public HotkeyNode AimKey { get; set; } = Keys.RButton;
+        public HotkeyNode AimKey { get; set; } = Keys.D9;
         public HotkeyNode ContagionKey { get; set; } = Keys.Q;
         public HotkeyNode EssenceDrainKey { get; set; } = Keys.W;
         public HotkeyNode BlightKey {get; set; } = Keys.E;
