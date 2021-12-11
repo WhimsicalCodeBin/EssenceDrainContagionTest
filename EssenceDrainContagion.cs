@@ -265,7 +265,7 @@ namespace EssenceDrainContagion
             //Console.WriteLine(ExileCore.PoEMemory.Components.Buffs._cachedValueBuffs);
         }
 
-        public static void Log(List<Buff> buffs, TextWriter w)
+        public static void Log(List<ExileCore.PoeMemory.Components.Buffs> buffs, TextWriter w)
             {
                 w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");
