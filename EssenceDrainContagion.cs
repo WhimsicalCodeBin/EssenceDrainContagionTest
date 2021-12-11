@@ -262,14 +262,9 @@ namespace EssenceDrainContagion
                 List<Buff> bufflist = entity.GetComponent<Buffs>().BuffsList;
                 List<string> bufflistnames = new List<string>();
 
-
-
-                for (int i = 0; i <= bufflist.Count; i++)
-                {
-                    bufflistnames.Add(bufflist[i].Name);
-                }
-
-                Log(bufflistnames, w);
+                Log(bufflist[0].Name, w);
+                Log(bufflist[1].Name, w);
+                Log(bufflist[2].Name, w);
             }
 
             
@@ -279,11 +274,16 @@ namespace EssenceDrainContagion
         }
 
         public static void Log(List<string> buffs, TextWriter w)
-            {
+        {
             w.WriteLine("Buff count:   " + buffs.Count);
                 foreach (string a in buffs) w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");
-            }
+        }
+
+        public static void Log(string s, TextWriter w)
+        {
+            w.WriteLine(s);
+        }
 
     }
 
