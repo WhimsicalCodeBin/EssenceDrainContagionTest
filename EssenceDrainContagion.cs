@@ -267,7 +267,8 @@ namespace EssenceDrainContagion
 
         public static void Log(List<Buff> buffs, TextWriter w)
             {
-                w.WriteLine(buffs);
+            w.WriteLine("Buff count:   " + buffs.Count);
+                foreach (Buff a in buffs) w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");
             }
 
