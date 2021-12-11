@@ -258,19 +258,30 @@ namespace EssenceDrainContagion
         public static void LogBuffs(Entity entity)
         {
             using (StreamWriter w = File.AppendText("log.txt"))
-                {
+            {
                 List<Buff> bufflist = entity.GetComponent<Buffs>().BuffsList;
-                Log(bufflist, w);
+                List<string> bufflistnames = new List<string>();
+
+
+
+                for (int i = 0; i <= bufflist.Count; i++)
+                {
+                    bufflistnames.Add(bufflist[i].Name);
                 }
+
+                Log(bufflistnames, w);
+            }
+
+            
 
 
             //Console.WriteLine(ExileCore.PoEMemory.Components.Buffs._cachedValueBuffs);
         }
 
-        public static void Log(List<Buff> buffs, TextWriter w)
+        public static void Log(List<string> buffs, TextWriter w)
             {
             w.WriteLine("Buff count:   " + buffs.Count);
-                foreach (Buff a in buffs) w.WriteLine(buffs);
+                foreach (string a in buffs) w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");
             }
 
