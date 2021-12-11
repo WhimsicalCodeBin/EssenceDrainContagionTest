@@ -11,7 +11,6 @@ using ExileCore.Shared;
 using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
-using JM.LinqFaster;
 
 using System.Threading.Tasks;
 

@@ -37,9 +37,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FastLinq, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FastLinq.0.4.0\lib\net45\FastLinq.dll</HintPath>
-    </Reference>
     <Reference Include="JM.LinqFaster, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\JM.LinqFaster.1.1.2\lib\net461\JM.LinqFaster.dll</HintPath>
     </Reference>
