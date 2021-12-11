@@ -11,6 +11,7 @@ using ExileCore.Shared;
 using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
+using JM.LinqFaster;
 
 using System.Threading.Tasks;
 
@@ -258,7 +259,8 @@ namespace EssenceDrainContagion
         {
             using (StreamWriter w = File.AppendText("log.txt"))
                 {
-                Log(entity.GetComponent<Buffs>().ParseBuffs(), w);
+                List<Buff> bufflist = entity.GetComponent<Buffs>().BuffsList;
+                Log(bufflist, w);
                 }
 
 
