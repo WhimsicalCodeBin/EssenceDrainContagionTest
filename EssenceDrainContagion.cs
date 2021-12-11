@@ -176,7 +176,7 @@ namespace EssenceDrainContagion
             Input.MouseMove();
             System.Threading.Thread.Sleep(10);
 
-            LogBuffs();
+            LogBuffs(_currentTarget.Item2);
             
             if (!_currentTarget.Item2.HasBuff("contagion", true)) return Input.KeyPress(Settings.ContagionKey.Value);
             else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("essence_drain", true)) return Input.KeyPress(Settings.EssenceDrainKey.Value);
@@ -254,18 +254,18 @@ namespace EssenceDrainContagion
             return weight;
         }
 
-        public static void LogBuffs()
+        public static void LogBuffs(Entity entity)
         {
             using (StreamWriter w = File.AppendText("log.txt"))
                 {
-                    Log(ExileCore.PoEMemory.Components.ParseBuffs());
+                Log(entity.GetComponent<Buffs>().ParseBuffs(), w);
                 }
 
 
             //Console.WriteLine(ExileCore.PoEMemory.Components.Buffs._cachedValueBuffs);
         }
 
-        public static void Log(List<ExileCore.PoeMemory.Components.Buffs> buffs, TextWriter w)
+        public static void Log(List<Buff> buffs, TextWriter w)
             {
                 w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");

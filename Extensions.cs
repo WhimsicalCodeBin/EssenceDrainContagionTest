@@ -27,5 +27,6 @@ namespace EssenceDrainContagion
                 return false;
             }
         }
+
     }
 }
