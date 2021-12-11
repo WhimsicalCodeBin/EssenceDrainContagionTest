@@ -9,3 +9,8 @@ riderModule.iml
 *.code-workspace
 *.sqlite
 workspace.code-workspace
+.vs/EssenceDrainContagion/v16/Server/sqlite3/db.lock
+.vs/EssenceDrainContagion/v16/Server/sqlite3/storage.ide
+.vs/EssenceDrainContagion/v16/Server/sqlite3/storage.ide-wal
+.vs/EssenceDrainContagion/v16/Server/sqlite3/storage.ide-shm
+.vs/EssenceDrainContagionTest/v16/.suo

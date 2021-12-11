@@ -12,6 +12,8 @@ using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
 
+using System.Threading.Tasks;
+
 namespace EssenceDrainContagion
 {
     public class EssenceDrainContagion : BaseSettingsPlugin<EssenceDrainContagionSettings>
@@ -250,6 +252,25 @@ namespace EssenceDrainContagion
             return weight;
         }
 
+        public static void LogBuffs()
+        {
+            using (StreamWriter w = File.AppendText("log.txt"))
+                {
+                    Log(ExileCore.PoEMemory.Components.ParseBuffs());
+                }
+
+
+            //Console.WriteLine(ExileCore.PoEMemory.Components.Buffs._cachedValueBuffs);
+        }
+
+        public static void Log(List<Buff> buffs, TextWriter w)
+            {
+                w.WriteLine(buffs);
+                w.WriteLine("---------------------------------------");
+            }
+
     }
+
+    
 
 }
