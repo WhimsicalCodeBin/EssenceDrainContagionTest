@@ -176,7 +176,7 @@ namespace EssenceDrainContagion
             Input.MouseMove();
             System.Threading.Thread.Sleep(10);
 
-            //LogBuffs(_currentTarget.Item2);
+            LogBuffs(_currentTarget.Item2);
             
             if (!_currentTarget.Item2.HasBuff("contagion", true)) return Input.KeyPress(Settings.ContagionKey.Value);
             else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("essence_drain", true)) return Input.KeyPress(Settings.EssenceDrainKey.Value);
@@ -261,9 +261,16 @@ namespace EssenceDrainContagion
                 List<Buff> bufflist = entity.GetComponent<Buffs>().BuffsList;
                 List<string> bufflistnames = new List<string>();
 
-                Log(bufflist[0].Name, w);
-                Log(bufflist[1].Name, w);
-                Log(bufflist[2].Name, w);
+                Log("Buff count:   " + bufflist.Count(), w);
+
+                int i = 0;
+
+                while (i < bufflist.Count())
+                {
+                    Log(bufflist[i].Name, w);
+                    i = i + 1;
+                }
+
             }
 
             
@@ -274,7 +281,7 @@ namespace EssenceDrainContagion
 
         public static void Log(List<string> buffs, TextWriter w)
         {
-            w.WriteLine("Buff count:   " + buffs.Count);
+            w.WriteLine("Buff count:   " + buffs.Count());
                 foreach (string a in buffs) w.WriteLine(buffs);
                 w.WriteLine("---------------------------------------");
         }
