@@ -169,7 +169,7 @@ namespace EssenceDrainContagion
                     _ignoredMonsters.Add(line.Trim().ToLower());
         }
 
-        private void Attack()
+        private IEnumerable Attack()
         {
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
@@ -186,7 +186,7 @@ namespace EssenceDrainContagion
                 System.Threading.Thread.Sleep(1000); 
                 Input.KeyUp(Settings.BlightKey.Value);
             }
-            else Input.KeyPress(Settings.ContagionKey.Value);
+            else yield return Input.KeyPress(Settings.ContagionKey.Value);
             //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
             //Full Rotation
             //
