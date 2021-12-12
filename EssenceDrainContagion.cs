@@ -169,7 +169,7 @@ namespace EssenceDrainContagion
                     _ignoredMonsters.Add(line.Trim().ToLower());
         }
 
-        private static IEnumerable Attack()
+        private void Attack()
         {
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
@@ -178,11 +178,11 @@ namespace EssenceDrainContagion
 
             //LogBuffs(_currentTarget.Item2);
 
-            //if (_currentTarget.Item2.HasBuff("contagion", false)) yield return Input.KeyPress(Settings.ContagionKey.Value);
-            //else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("siphon_damage", true)) yield return Input.KeyPress(Settings.EssenceDrainKey.Value);
-            //else if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("siphon_damage", true)) yield return Input.KeyPress(Settings.BlightKey.Value); 
-            //else yield return Input.KeyPress(Settings.ContagionKey.Value);
-            yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
+            if (!_currentTarget.Item2.HasBuff("contagion", false)) Input.KeyPress(Settings.ContagionKey.Value);
+            else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("siphon_damage", true)) Input.KeyPress(Settings.EssenceDrainKey.Value);
+            else if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("siphon_damage", true)) Input.KeyPress(Settings.BlightKey.Value); 
+            else Input.KeyPress(Settings.ContagionKey.Value);
+            //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
             //Full Rotation
             //
         }
