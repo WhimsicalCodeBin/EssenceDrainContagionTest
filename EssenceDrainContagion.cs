@@ -178,15 +178,10 @@ namespace EssenceDrainContagion
 
             //LogBuffs(_currentTarget.Item2);
 
-            if (!_currentTarget.Item2.HasBuff("contagion", true)) Input.KeyPress(Settings.ContagionKey.Value);
-            else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("siphon_damage", true)) Input.KeyPress(Settings.EssenceDrainKey.Value);
-            else if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("siphon_damage", true))
-            {
-                Input.KeyDown(Settings.BlightKey.Value); 
-                System.Threading.Thread.Sleep(1000); 
-                Input.KeyUp(Settings.BlightKey.Value);
-            }
-            else yield return Input.KeyPress(Settings.ContagionKey.Value);
+            if (!_currentTarget.Item2.HasBuff("contagion", true)) yield return Input.KeyPress(Settings.ContagionKey.Value);
+            else if (_currentTarget.Item2.HasBuff("contagion", true) && !_currentTarget.Item2.HasBuff("siphon_damage", true)) yield return Input.KeyPress(Settings.EssenceDrainKey.Value);
+            else if (_currentTarget.Item2.HasBuff("contagion", true) && _currentTarget.Item2.HasBuff("siphon_damage", true)) yield return Input.KeyPress(Settings.BlightKey.Value); 
+            //else yield return Input.KeyPress(Settings.ContagionKey.Value);
             //yield return Input.KeyPress(_currentTarget.Item2.HasBuff("contagion", true) ? Settings.EssenceDrainKey.Value : Settings.ContagionKey.Value);
             //Full Rotation
             //
