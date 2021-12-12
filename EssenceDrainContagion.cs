@@ -174,7 +174,7 @@ namespace EssenceDrainContagion
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
             Input.MouseMove();
-            System.Threading.Thread.Sleep(10);
+            System.Threading.Thread.Sleep(25);
 
             //LogBuffs(_currentTarget.Item2);
 
