@@ -169,7 +169,7 @@ namespace EssenceDrainContagion
                     _ignoredMonsters.Add(line.Trim().ToLower());
         }
 
-        private IEnumerable Attack()
+        private static IEnumerable Attack()
         {
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
