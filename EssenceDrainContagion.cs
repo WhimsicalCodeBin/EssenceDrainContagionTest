@@ -12,8 +12,6 @@ using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
 using SharpDX;
 
-using System.Threading.Tasks;
-
 namespace EssenceDrainContagion
 {
     public class EssenceDrainContagion : BaseSettingsPlugin<EssenceDrainContagionSettings>
@@ -108,7 +106,6 @@ namespace EssenceDrainContagion
                     && _currentTarget != null)
                 {
                     _aiming = true;
-                    _lastTargetSwap.Restart();
                     yield return Attack();
                 }
 
@@ -174,8 +171,7 @@ namespace EssenceDrainContagion
         {
             var position = GameController.Game.IngameState.Camera.WorldToScreen(_currentTarget.Item2.Pos);
             Input.SetCursorPos(position);
-            Input.MouseMove();
-            System.Threading.Thread.Sleep(17);
+            System.Threading.Thread.Sleep(10);
 
             //LogBuffs(_currentTarget.Item2);
 
